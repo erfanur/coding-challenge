@@ -49,4 +49,52 @@ public class WordProcessorTests {
         processedWords = WordProcessor.longestWord(sentence);
         Assert.assertEquals(processedWords.size(), 1);
     }
+
+    /**
+     * Validates multiple spaces are ignored
+     */
+    @Test(priority = 3)
+    public void inputWithMultipleSpaces() {
+        String sentence = "The dog   followed   the cat who followed the cow to the moon.";
+        LOGGER.info("Sentence: " + sentence);
+        processedWords = WordProcessor.longestWord(sentence);
+        Assert.assertEquals(processedWords.size(), 1);
+    }
+
+    /**
+     * Validates special chars are handled.
+     */
+    @Test(priority = 4)
+    public void inputSpecialCharWithinSentence() {
+        String sentence = "The dog   followedd#   the cat who followed the cow to the moon.";
+        LOGGER.info("Sentence: " + sentence);
+        processedWords = WordProcessor.longestWord(sentence);
+        Assert.assertEquals(processedWords.size(), 1);
+    }
+
+    /**
+     * Validates that an integer is not accepted as a valid input
+     */
+    @Test(priority = 5)
+    public void inputAnInteger() {
+        Assert.assertNull(WordProcessor.longestWord("1234"));
+    }
+
+    /**
+     * Validates special chars is not accepted as a valid input
+     */
+    @Test(priority = 6)
+    public void inputSpecialChar() {
+        Assert.assertNull(WordProcessor.longestWord("%$@#."));
+    }
+
+    /**
+     * Validates empty String is not accepted as a valid input
+     */
+    @Test(priority = 7)
+    public void inputEmptyString() {
+        Assert.assertNull(WordProcessor.longestWord(""));
+    }
+
+
 }

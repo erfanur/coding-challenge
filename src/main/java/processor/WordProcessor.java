@@ -5,6 +5,8 @@ import org.apache.log4j.Logger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class WordProcessor {
     private static final Logger LOGGER = Logger.getLogger(WordProcessor.class);
@@ -17,7 +19,19 @@ public class WordProcessor {
      */
     public static HashMap longestWord(String sentence) {
         HashMap<String, Integer> longestWordMap = new HashMap<>();
-        String[] wordArray = sentence.split(" ");
+        sentence = sentence.trim().replaceAll("\\s{2,}", " ");
+
+        Pattern regex = Pattern.compile("[^0-9$&+,:;=?@#|'<>.-^*()%!]");
+
+        Matcher m = regex.matcher(sentence);
+
+
+        if (sentence.isEmpty() || sentence == null || !m.find()) {
+            LOGGER.info("Please input a valid String.");
+            return null;
+        }
+
+        String[] wordArray = sentence.replaceAll("[^a-zA-Z ]", " ").toLowerCase().split("\\s+");
         int maxlength = 0;
 
         //Iterate through the array and find the length of the longest word
