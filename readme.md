@@ -1,4 +1,5 @@
-Coding challenge
+Coding challenge:
+The purpose of this application is to find the longest words for a given sentence.
 
 Prerequisites:
 Maven 3.X or above
